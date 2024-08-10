@@ -99,10 +99,10 @@ class CrossSection:
 
         return cross
 
-    def get_xticks(self, ntick=6, lon_formatter=None, lat_formatter=None):
+    def get_xticks(self, nticks=6, lon_formatter=None, lat_formatter=None):
         '''返回截面图所需的横坐标, 刻度位置和刻度标签.'''
         return fplt.get_cross_section_xticks(
-            self.line[:, 0], self.line[:, 1], ntick,
+            self.line[:, 0], self.line[:, 1], nticks,
             lon_formatter, lat_formatter
         )
 
@@ -225,11 +225,11 @@ def plot_precipitation():
     ax.coastlines(resolution='50m', lw=0.5)
     ax.add_feature(LAND.with_scale('50m'))
     ax.add_feature(OCEAN.with_scale('50m'))
-    fplt.set_extent_and_ticks(
+    fplt.set_map_ticks(
         ax, extents,
         xticks=np.arange(-180, 181, 5),
         yticks=np.arange(-90, 91, 5),
-        nx=1, ny=1
+        mx=1, my=1
     )
     ax.set_extent(extents, crs)
     ax.tick_params(which='major', length=8, labelsize='large')
