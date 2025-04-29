@@ -64,7 +64,7 @@ class CrossSection:
             x1 = xc + half
             y0 = yc - half
             y1 = yc + half
-            mask = region_mask(lon, lat, [x0, x1, y0, y1], apply_and=True)
+            mask = np.logical_and(*region_mask(lon, lat, [x0, x1, y0, y1]))
             self.masks.append(mask)
 
     def __call__(self, data):
@@ -141,7 +141,7 @@ def read_GMI_data(filepath):
     # 截取数据
     npixel = Longitude.shape[1]
     mid = npixel // 2
-    mask = region_mask(Longitude[:, mid], Latitude[:, mid], extents, apply_and=True)
+    mask = np.logical_and(*region_mask(Longitude[:, mid], Latitude[:, mid], extents))
     Longitude = Longitude[mask, :]
     Latitude = Latitude[mask, :]
     surfacePrecipitation = surfacePrecipitation[mask, :]
@@ -167,7 +167,7 @@ def read_DPR_data(filepath):
     # 截取数据
     nray = Longitude.shape[1]
     mid = nray // 2
-    mask = region_mask(Longitude[:, mid], Latitude[:, mid], extents, apply_and=True)
+    mask = np.logical_and(*region_mask(Longitude[:, mid], Latitude[:, mid], extents))
     Longitude = Longitude[mask, :]
     Latitude = Latitude[mask, :]
     elevation = elevation[mask, :]
@@ -208,7 +208,7 @@ def read_LH_data(filepath):
     # 截取数据
     nray = Longitude.shape[1]
     mid = nray // 2
-    mask = region_mask(Longitude[:, mid], Latitude[:, mid], extents, apply_and=True)
+    mask = np.logical_and(*region_mask(Longitude[:, mid], Latitude[:, mid], extents))
     Longitude = Longitude[mask, :]
     Latitude = Latitude[mask, :]
     latentHeating = latentHeating[mask, :, :]

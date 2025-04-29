@@ -26,7 +26,7 @@ with h5py.File(str(filepath), "r") as f:
 # 截取数据
 nscan, nray = lon.shape
 mid = nray // 2
-mask = region_mask(lon[:, mid], lat[:, mid], extents, apply_and=True)
+mask = np.logical_and(*region_mask(lon[:, mid], lat[:, mid], extents))
 index = np.s_[mask, :20]
 lon = lon[index]
 lat = lat[index]
